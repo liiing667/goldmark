@@ -1,0 +1,244 @@
+1: basic container with a title
+//- - - - - - - - -//
+::: note 提示
+Hello, **world**!
+:::
+//- - - - - - - - -//
+<div class="container note">
+<p class="container-title">提示</p>
+<p>Hello, <strong>world</strong>!</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+2: container without a title
+//- - - - - - - - -//
+::: warning
+content
+:::
+//- - - - - - - - -//
+<div class="container warning">
+<p>content</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+3: title is parsed as inline elements
+//- - - - - - - - -//
+::: note **bold** title
+content
+:::
+//- - - - - - - - -//
+<div class="container note">
+<p class="container-title"><strong>bold</strong> title</p>
+<p>content</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+4: nested containers
+//- - - - - - - - -//
+::: note
+outer
+::: warning
+inner
+:::
+after inner
+:::
+//- - - - - - - - -//
+<div class="container note">
+<p>outer</p>
+<div class="container warning">
+<p>inner</p>
+</div>
+<p>after inner</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+5: unclosed container is closed at EOF
+//- - - - - - - - -//
+::: note
+content
+
+more
+//- - - - - - - - -//
+<div class="container note">
+<p>content</p>
+<p>more</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+6: unclosed nested containers are closed at EOF
+//- - - - - - - - -//
+::: note
+::: warning
+inner
+//- - - - - - - - -//
+<div class="container note">
+<div class="container warning">
+<p>inner</p>
+</div>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+7: list in a container
+//- - - - - - - - -//
+::: note
+- a
+- b
+:::
+//- - - - - - - - -//
+<div class="container note">
+<ul>
+<li>a</li>
+<li>b</li>
+</ul>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+8: fenced code block in a container
+//- - - - - - - - -//
+::: note
+```go
+:::
+```
+:::
+//- - - - - - - - -//
+<div class="container note">
+<pre><code class="language-go">:::
+</code></pre>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+9: blockquote in a container
+//- - - - - - - - -//
+::: note
+> quote
+:::
+//- - - - - - - - -//
+<div class="container note">
+<blockquote>
+<p>quote</p>
+</blockquote>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+10: indented code block in a container
+//- - - - - - - - -//
+::: note
+    :::
+:::
+//- - - - - - - - -//
+<div class="container note">
+<pre><code>:::
+</code></pre>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+11: indented container-like line is an indented code block
+//- - - - - - - - -//
+    ::: note
+//- - - - - - - - -//
+<pre><code>::: note
+</code></pre>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+12: container-like line in a fenced code block
+//- - - - - - - - -//
+```
+::: note
+:::
+```
+//- - - - - - - - -//
+<pre><code>::: note
+:::
+</code></pre>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+13: a line of colons only is not a container
+//- - - - - - - - -//
+:::
+//- - - - - - - - -//
+<p>:::</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+14: container between lists
+//- - - - - - - - -//
+- item1
+- item2
+
+::: note
+content
+:::
+
+- after
+//- - - - - - - - -//
+<ul>
+<li>item1</li>
+<li>item2</li>
+</ul>
+<div class="container note">
+<p>content</p>
+</div>
+<ul>
+<li>after</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+15: container in a blockquote
+//- - - - - - - - -//
+> ::: note
+> inside
+> :::
+//- - - - - - - - -//
+<blockquote>
+<div class="container note">
+<p>inside</p>
+</div>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+16: container in a list item
+//- - - - - - - - -//
+- item
+  ::: note
+  inside
+  :::
+- next
+//- - - - - - - - -//
+<ul>
+<li>item
+<div class="container note">
+<p>inside</p>
+</div>
+</li>
+<li>next</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+17: container interrupts a paragraph
+//- - - - - - - - -//
+text
+::: note
+content
+:::
+//- - - - - - - - -//
+<p>text</p>
+<div class="container note">
+<p>content</p>
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+18: container followed by a fenced code block
+//- - - - - - - - -//
+::: note
+content
+:::
+
+```
+code
+```
+//- - - - - - - - -//
+<div class="container note">
+<p>content</p>
+</div>
+<pre><code>code
+</code></pre>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
